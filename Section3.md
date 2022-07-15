@@ -1,25 +1,15 @@
 # Section 3
 
-엔지니어링 팀을 위한 스타일 가이드와 모범 사례
-
 # functions
 
----
 
-- **들여쓰기** **스페이스 2번**
-- **사용하지 않는 변수 제거** – 수많은 버그의 원인이 됩니다!
-- **세미콜론 생략** – 없어도 정말 괜찮아요!
-- **새 행을** `(`**,** `[` **혹은** `````**로 시작하지 않기**
-    - 세미콜론을 생략할 때 문제가 생길 수 있습니다 (자동으로 검사될 거예요!)
-- **키워드(**`if (condition) { ... }`**) 뒤에 스페이스 입력**
-- **항상** `==` **대신** `===` **사용하기. 하지만**  `null || undefined`**를 확인할 때는** `obj == null`이 **허용됩니다.**
-- render_template : return html file
-- request.get_jason :  flask에서 post 방식으로 오는 json 입력을 받는 함수
-- jsonify : 최근에는 HTTP header에 자동으로 json임을 명시하고 인식하기 때문에 필요는 없음
+
+- render_template : **return html file**
+- request.get_jason :  flask에서 **post 방식으로 오는 json 입력을 받는 함수**
+- jsonify : 최근에는 HTTP header에 **자동으로 json임을 명시**하고 인식하기 때문에 필요는 없음
 
 # Description
 
----
 
 ```python
 from flask import Flask,jsonify,request,render_template
