@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cornell Notes System</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="84926c55-207e-4334-8562-e9249f495c98" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📍</span></div><h1 class="page-title">Cornell Notes System</h1></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="680dc372-f79b-4dc9-80ce-ec1b1f9ae3fd"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">In the 1940s, Cornell Professor Walter Pauk developed a new note-taking system to give college students a better way to organize, condense, and intake knowledge. It&#x27;s proven as an incredibly effective learning tool. Here&#x27;s how to use it in Notion.</div></figure><h2 id="4bfe4ead-97b7-4d8c-866c-c3f2a2bca878" class="">Divide your page into two columns.</h2><p id="f7f9b81d-7ee7-46c3-aa7b-e1f1b442aea5" class="block-color-gray">The narrower left column is for recording keywords, questions, and recall prompts. The right column is for your actual notes taken during a lecture or class.</p><p id="234ee54d-5a01-427a-b551-5a1fb0afc7dd" class="">
+</p><div id="41eaed48-50b3-4451-baec-dda3abe9333e" class="column-list"><div id="83994b26-3775-43ba-ac23-985b80881be4" style="width:25%" class="column"><h3 id="604075ca-51f8-4f46-8202-076fd8f24e8f" class="">Recall</h3><p id="64d203bd-89a0-4f39-914e-39701a894213" class="">
+</p><p id="94fc723a-c74b-4e6e-9009-2817042bf96e" class="">KEYWORD</p><p id="f6cc156b-0851-4678-953b-e6f905723e75" class="">
+</p><p id="3c0e8db6-e6cb-4869-8f26-99409152e7fd" class="">RELEVANT QUESTION</p></div><div id="faf9d510-b7c6-4934-b5dd-f374e4ce4b33" style="width:75%" class="column"><h3 id="aff91a38-2932-4eac-bbeb-6706f0ee9cd2" class="">Notes</h3><ul id="a44327eb-1079-4320-b0af-e2aeaa5e23a6" class="bulleted-list"><li style="list-style-type:disc">....</li></ul><ul id="50e58962-f7db-4a30-98f2-0de0df3502c5" class="bulleted-list"><li style="list-style-type:disc">....</li></ul><ul id="264d29f8-089b-4388-85e6-231bd9c74c91" class="bulleted-list"><li style="list-style-type:disc">....</li></ul><ul id="94b21e86-e2a9-42d3-9753-0f6a9800a5ad" class="bulleted-list"><li style="list-style-type:disc">....</li></ul><ul id="939958d4-ffa3-41f1-94b8-942db09dedaa" class="bulleted-list"><li style="list-style-type:disc">....</li></ul></div></div><h2 id="32a5ac9a-a5b3-4841-a3c1-344848561ed7" class="">Create a summary section at the bottom.</h2><p id="bb08cfe1-7f21-4669-8263-5237f2f65add" class="block-color-gray">When you review your notes, briefly summarize what you learned and what is important to retain from the full page of notes. This will help you internalize the information.</p><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="da0a77f3-b6d1-4617-84e7-ef4b631d08da"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><strong>SUMMARY: </strong>Create a callout box like this one in Notion by typing <code>/callout</code>. It&#x27;s the perfect way to capture summaries that stand out.</div></figure><h2 id="2837475e-5068-4ab2-8a94-5bf7a5490301" class="">Here&#x27;s an example:</h2><p id="0a7e5e84-3037-473d-b8e0-dce738d19a26" class="block-color-gray">We promise, a template is coming below! </p><div id="dea5d640-1854-4704-bc3e-7d85d389cdd1" class="column-list"><div id="e031a028-a140-4c2c-a333-0a041574a287" style="width:25%" class="column"><h3 id="f802487f-3262-4ca8-80fe-2ae40a77c859" class="">Recall</h3><p id="8e97a8a6-66c8-46be-85a5-e01fa1616ec7" class=""><strong>What is the definition of propaganda? </strong></p><p id="a2a0aedd-0645-4715-a942-e86fba64a939" class="">
+</p><p id="be73963e-7d9d-49d1-bf4f-e69af919f653" class=""><strong>What are the 4 techniques used by advertisers?</strong></p><p id="5b7192cd-53eb-4cbc-ac5d-86c0e0e4dded" class="">
+</p><p id="2740d955-52dc-4560-b0b0-8f73b8a52899" class=""><strong>What is an example?</strong></p></div><div id="ea5fbe3a-4ba0-4b64-9ccd-aedf41ebeb1d" style="width:75%" class="column"><h3 id="fef94a90-d9e9-4e5a-a54f-5876b69b4cf6" class="">Notes</h3><ul id="356ace42-b3a6-40b0-8548-f4f29b692f86" class="bulleted-list"><li style="list-style-type:disc">Propaganda is messages intended to persuade audiences to adopt a certain option.</li></ul><ul id="07c6eedd-b9e9-4b2b-b569-d8a1399eb52f" class="bulleted-list"><li style="list-style-type:disc">Advertisers use propaganda using 4 techniques:<ul id="008f193c-3332-4a59-b909-3707a655f768" class="bulleted-list"><li style="list-style-type:circle">Testimonial</li></ul><ul id="ad0a5dd1-f7b7-4f88-983e-64b40d26663e" class="bulleted-list"><li style="list-style-type:circle">Bandwagon</li></ul><ul id="6a132960-8edf-40dc-80c5-12f435583d7f" class="bulleted-list"><li style="list-style-type:circle">Plain folks</li></ul><ul id="7a7caaa4-73cd-4b3f-8d09-c07ec42bafbf" class="bulleted-list"><li style="list-style-type:circle">Transfer</li></ul></li></ul><ul id="1aeadc6c-a2e1-4e88-b925-82c13a327af5" class="bulleted-list"><li style="list-style-type:disc">Testimonial example: Michael Jordan sells Nike shoes</li></ul></div></div><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="38c82f35-4066-44fe-9c71-f024d959c6dc"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><strong>SUMMARY: </strong>Advertisers use propaganda to sell products, and use 4 different techniques to do so.</div></figure><p id="0a615225-add3-4176-83df-0de8b9959087" class="">
+</p><h2 id="4eb0b8f3-4cf4-4741-9831-f869a042784a" class="">Here&#x27;s your template!</h2><p id="fb2d35f0-caec-4d35-b55c-19d7e20298e8" class="block-color-gray"><code>@today</code> automatically stamps your notes with today&#x27;s date. Fill in the topic of the lecture or class. Then use the Cornell Notes structure below. Click the <code>+ New Notes</code> button above to automatically generate a fresh set of notes in this format.</p><p id="8c0b2ccb-0403-43b2-a13c-372af41fd385" class="">
+</p><h3 id="21b884b4-0ce4-407f-8e66-c14f4ece1ec0" class="">Date: <time>@2022년 7월 16일</time> </h3><h3 id="1507f456-1e19-401a-a000-07e7045fdf27" class="">Topic: Basic use of Postman</h3><div id="35ae4e85-397a-411a-9c23-e3423c8aac38" class="column-list"><div id="9e33f6d9-20b4-474d-99be-fa4aac473616" style="width:25%" class="column"><h3 id="ee37949a-03a7-4775-a839-c3ae3c409b4a" class="">Recall</h3><p id="a03957ba-6e48-45fb-8f99-30aa4949bbdc" class="">[+] button</p><p id="05f67b4c-9b86-485d-9f14-fc72051596b9" class="">[+ collection]</p><p id="037c142f-69fd-437c-b9d7-823b47227c9f" class="">
+</p><p id="89600442-6266-4f7b-8f48-163ca9560ce4" class="">[body][form-data]</p><p id="93331b19-3663-493a-9254-d15630591cd6" class="">[body][raw]</p><p id="923a2ba1-1dc2-4266-af8a-cf7933c2aa74" class="">[duplicate]</p><p id="3a8cdbcb-d20b-4d95-a58e-ed38817a53cb" class="">
+</p><p id="604072f8-b7b5-4391-9989-8aa6368143a5" class="">[눈모양]</p><p id="be14e403-a41c-4207-a88f-ba52226b71d3" class="">
+</p><p id="a45ed0bd-0298-46ff-a440-94be311fb201" class="">
+</p><p id="bd19110d-f45d-4553-b4e8-129509b03760" class="">[인덱싱 자동화]</p><p id="8fa7d014-47bf-4382-97f3-05a1960cd85e" class="">
+</p><p id="7c25ba3c-7378-4991-a36a-cebc343948ed" class="">
+</p><p id="626dfa38-d927-4c43-ba75-43be2369555c" class="">[시나리오]</p></div><div id="b9c4f645-1423-491f-a9d7-8fc2db6e81f5" style="width:75%" class="column"><h3 id="17786537-79b2-4e18-aa70-bb12a2409746" class="">Notes</h3><ul id="1a657dc6-9663-4be3-b379-7d1bd438ac0e" class="bulleted-list"><li style="list-style-type:disc">request 하나를 추가함</li></ul><ul id="e402f852-cc83-41e7-afdb-340930ab99d6" class="bulleted-list"><li style="list-style-type:disc">request 를 모을 수 있는 폴더(하위 폴더 생성 가능)</li></ul><p id="de1fd636-f707-4d5a-a159-7d7f471fa91a" class="">
+</p><ul id="6da7869d-dd89-47e4-978c-414996819370" class="bulleted-list"><li style="list-style-type:disc">POST data를 규경에 맞춰서 보낼 수 있음</li></ul><ul id="1b9e722b-2792-4600-849d-fa600acc6526" class="bulleted-list"><li style="list-style-type:disc">data 형식을 선택가능(ex json)</li></ul><ul id="9668cd5c-7f6a-4dfb-9b4c-ae5309e4ef4b" class="bulleted-list"><li style="list-style-type:disc">token을 새로 생성하지 않아도 됨</li></ul><p id="2ee9706c-8f8f-4c27-b535-9468ba91e1c8" class="">
+</p><ul id="0721dedc-0c63-47b8-b02a-731e6b9187d8" class="bulleted-list"><li style="list-style-type:disc">전역변수 설정(global) → (ex. {{url}})</li></ul><ul id="17640a72-1e13-4cd8-9d61-41d2739b9b91" class="bulleted-list"><li style="list-style-type:disc">환경설정(environment) → 해당환경에서만 변수 사용</li></ul><p id="e8b0be14-7f38-4e2e-bae5-0e7bf4249e18" class="">
+</p><figure id="3d51eb4e-b893-4e56-83c6-7cf73b4a1b47"><a href="https://youtu.be/zlS8bmYkEvQ" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">[포스트맨][기초] 5강</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/cafdf09f/img/favicon.ico" class="icon bookmark-icon"/>https://youtu.be/zlS8bmYkEvQ</div></div><img src="https://i.ytimg.com/vi/zlS8bmYkEvQ/hqdefault.jpg" class="bookmark-image"/></a></figure><p id="f8b9c910-cfa3-4cec-bd50-51ede308d722" class="">
+</p><ul id="075fef22-0d1a-4d3b-b04a-a0d6eff80d8b" class="bulleted-list"><li style="list-style-type:disc">각 request가 잘 동작하는지 확인할 수 있는 순서를 만듬(collection)</li></ul><p id="6d4a5cd0-d0c4-4f6f-b2eb-e1b1270061b3" class="">
+</p></div></div></div></article></body></html>
